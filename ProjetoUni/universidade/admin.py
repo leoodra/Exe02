@@ -65,39 +65,42 @@ class PeriodoAdmin(admin.ModelAdmin):
 
 class  EstxDisxPerInline(admin.TabularInline):
 	model = EstxDisxPer
+	extra = 1
 
 class EstruturaAdmin(admin.ModelAdmin):
-	list_display = ['Nome','Ano','Cuso']
-	list_filter = ['Nome','Ano','Curso']
 	list_display = ['Nome','Ano','Curso']
+	list_filter = ['Nome','Ano','Curso']
+	search_field = ['Nome','Ano','Curso']
         inlines = [EstxDisxPerInline]
         save_as = True
 
-class TurmaxAlunoAdmin(admin.TabularInline):
+class TurmaxAlunoInline(admin.TabularInline):
 	model = TurmaxAluno
+	extra = 1	
 
 class TurmaAdmin(admin.ModelAdmin):
 	list_display = ['Nome','Semestre']
 	list_filter = ['Nome','Semestre']
 	search_field = ['Nome','Semestre']
+	inlines = [TurmaxAlunoInline]
 	save_as = True
 	
 class TurmaxDisciplinaAdmin(admin.ModelAdmin):
-	list_display = ['Turma','EstDisPer']
- 	lis_filter = ['Turma','EstDisPer']
-	search_field = ['Turma','EstDisPer']
+	list_display = ['Turma','Disciplina']
+ 	lis_filter = ['Turma','Disciplina']
+	search_field = ['Turma','Disciplina']
 	save_as = True
 
 class DisciplinaxAlunoAdmin(admin.ModelAdmin):
-	list_display = ['TurmaAluno','TurmaDisciplina']
-	list_filter = ['TurmaAluno','TurmaDisciplina']
-	search_field = ['TurmaAluno','TurmaDisciplina']
+	list_display = ['Aluno','Disciplina']
+	list_filter = ['Aluno','Disciplina']
+	search_field = ['Aluno','Disciplina']
 	save_as = True
 
 class TurxDisxHorAdmin(admin.ModelAdmin):
 	list_display = ['TurmaxDisciplina','Professor','Horario']
 	list_filter = ['TurmaxDisciplina','Professor','Horario']
-	searc_fiels = ['TurmaxDisciplina','Professor','Horario']
+	search_fiels = ['TurmaxDisciplina','Professor','Horario']
 	save_as = True
 
 

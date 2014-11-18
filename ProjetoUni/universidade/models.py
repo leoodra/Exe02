@@ -55,8 +55,11 @@ class Aluno(models.Model):
 		return self.Nome
 
 class Horario(models.Model):
-		HoraEntrada = models.TimeField('Horário Início Aula')
-		HoraSaida = models.TimeField('Horário Fim Aula')
+	HoraEntrada = models.TimeField('Horário Início Aula')
+	HoraSaida = models.TimeField('Horário Fim Aula')
+
+	def __unicode__(self):
+		return "%s" %(self.HoraEntrada)
 
 
 class Professor(models.Model):
@@ -90,7 +93,7 @@ class Estrutura(models.Model):
 	Curso = models.ForeignKey(Curso,verbose_name="Curso",null=True)
 
 	def __unicode__(self):
-		return "%s - %s" % (self.Curso.Nome,self.Nome)
+		return "%s - %s - %s" % (self.Nome,self.Ano,self.Curso.Nome)
 
 class EstxDisxPer(models.Model):
 	Estrutura = models.ForeignKey(Estrutura,verbose_name="Estrutura",null=True)
@@ -117,17 +120,17 @@ class TurmaxAluno(models.Model):
 
 class TurmaxDisciplina(models.Model):
 	Turma = models.ForeignKey(Turma,verbose_name="Turma",null=True)
-	EstDisPer = models.ForeignKey(EstxDisxPer,verbose_name="Estrutura",null=True)
+	Disciplina = models.ForeignKey(EstxDisxPer,verbose_name="Disciplina",null=True)
 	
 	def __unicode__(self):
-		return "%s - %s" %(self.Turma.Nome,self.EstxDisxPer.Disciplina.Disciplina.Nome)
+		return "%s - %s" %(self.Turma.Nome,self.Disciplina.Disciplina.Nome)
 
 class DisciplinaxAluno(models.Model):
-	TurmaAluno = models.ForeignKey(TurmaxAluno,verbose_name="Aluno",null=True)
-	TurmaDisciplina = models.ForeignKey(TurmaxDisciplina,verbose_name="Disciplina",null=True)
+	Aluno = models.ForeignKey(TurmaxAluno,verbose_name="Aluno",null=True)
+	Disciplina = models.ForeignKey(TurmaxDisciplina,verbose_name="Disciplina",null=True)
 
 	def __unicode__(self):
-		return"%s - %s" %(self.TurmaxAluno.Aluno.Aluno.Nome,self.TurmaDisciplina.Turma.Turma.Nome)
+		return"%s - %s" %(self.Aluno.Aluno.Nome,self.Disciplina.Disciplina.Disciplina.Nome)
 
 class TurxDisxHor(models.Model):
 	TurmaxDisciplina = models.ForeignKey(TurmaxDisciplina,verbose_name="Disciplina",null=True)
