@@ -40,7 +40,7 @@ class Semestre(models.Model):
 	DtSemf = models.DateField('Fim do Semestre')
 	
 	def __unicode__(self):
-		return self.Nome
+		return self.TipSem
 
 class Aluno(models.Model):
 	Nome = models.CharField('Nome',max_length=57,unique=True)
@@ -95,17 +95,18 @@ class Estrutura(models.Model):
 class EstxDisxPer(models.Model):
 	Estrutura = models.ForeignKey(Estrutura,verbose_name="Estrutura",null=True)
 	Periodo = models.ForeignKey(Periodo,verbose_name="Periodo",null=True)
-	Discipllina = models.ForeignKey(Disciplina,verbose_name="Disciplina")
+	Disciplina = models.ForeignKey(Disciplina,verbose_name="Disciplina",null=True)
 	
 	def __unicode__(self):
 		return "%s - %s - %s" %(self.Estrutura.Nome,self.Periodo.NumPeriodo,self.Disciplina.Nome)
 
 class Turma(models.Model):
-	Nome = models.CharField('Nome da Turma',max_length=17)
+	Nome = models.CharField('Nome da Turma',max_length=17,null = True)
 	Semestre = models.ForeignKey(Semestre,verbose_name="Semestre",null=True)
+	Estrutura = models.ForeignKey(Estrutura,verbose_name="Estrutura",null=True)
 
 	def __unicode__(self):
-		return "%s - %s" % (self.Nome,self.Semestre.TipoSem)
+		return "%s - %s - %s" % (self.Nome,self.Semestre.TipSem,self.Estrutura.Nome)
 
 class TurmaxAluno(models.Model):
 	Aluno = models.ForeignKey(Aluno,verbose_name="Aluno",null=True)

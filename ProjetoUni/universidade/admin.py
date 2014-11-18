@@ -25,8 +25,8 @@ class CoordenadorAdmin(admin.ModelAdmin):
 	save_as = True
 
 class CursoAdmin(admin.ModelAdmin):
-	list_display = ['Nome']
-	list_filter = ['Nome']
+	list_display = ['Nome','Tempo']
+	list_filter = ['Nome','Tempo']
 	search_fields = ['Nome','Tempo']
 	save_as = True
 
