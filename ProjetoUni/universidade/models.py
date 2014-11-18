@@ -8,6 +8,12 @@ SEXO = [
 	('M','Masculino')
 ]
 
+SEMESTRE = [
+	('1','1º Semestre'),
+	('2','2º Semestre')
+]
+
+
 
 class Coordenador(models.Model):
 	Nome = models.CharField('Nome',max_length=57,unique=True)
@@ -29,7 +35,7 @@ class Curso(models.Model):
 		return self.Nome
 
 class Semestre(models.Model):
-	TipSem = models.IntegerField('O Semestre',max_length=1)
+	TipSem = models.CharField('O Semestre',max_length=1,choices=SEMESTRE)
 	DtSemi =models.DateField('Inicio do Semestre')
 	DtSemf = models.DateField('Fim do Semestre')
 	
@@ -67,13 +73,13 @@ class Professor(models.Model):
 
 class Disciplina(models.Model):
 	Nome = models.CharField('Nome da Disciplina',max_length=57,unique=True)
-	CargaHoraria = models.IntegerField('Carga Horária - (em hora)',max_length=3)
+	CargaHoraria = models.CharField('Carga Horária - (em hora)',max_length=3)
 	
 	def __unicode__(self):
 		return self.Nome
 		
 class Periodo(models.Model):
-	NumPeriodo = models.IntegerField('Número do Período',max_length=2)
+	NumPeriodo = models.CharField('Número do Período',max_length=2)
 
 	def __unicode__(self):
 		return self.NumPeriodo
